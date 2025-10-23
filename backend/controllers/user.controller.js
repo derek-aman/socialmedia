@@ -297,7 +297,7 @@ export const getMyConnectionsRequest = async (req,res) => {
     
     return res.status(500).json({ message: error.message });
   }
-}
+};
 export const whatAreMyConnections = async (req,res) => {
     const {token} = req.body;
 
@@ -354,4 +354,8 @@ export const acceptConnectionRequest = async (req, res) => {
     
     return res.status(500).json({ message: error.message });
   }
+};
+
+export const  getAllPosts = async (req,res) => {
+    
 }
