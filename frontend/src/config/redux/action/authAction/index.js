@@ -1,3 +1,4 @@
+import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
@@ -29,6 +30,17 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     "user/register",
     async (user, thunkAPI) => {
-        
+        try{
+            const request = await clientServer.post("/register", {
+                userName: user.userName,
+                password:user.password,
+                email: user.email,
+                name:user.name
+
+            })
+
+        }catch (err){
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
     }
 )
