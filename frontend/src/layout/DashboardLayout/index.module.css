@@ -18,17 +18,18 @@
 .sideBarOptions{
     display: flex;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     gap: 1.3rem;
     width: 80%;
     max-width: 80%;
     margin: 0 auto;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 
 .sideBarOptions:hover{
-    transform: scale(1.01);
+    transform: scale(1.04);
 }
 .sideBarOptions > svg {
    height: 1.4rem;
