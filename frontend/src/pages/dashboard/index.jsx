@@ -13,6 +13,11 @@ function Dashboard() {
     const router = useRouter();
     const dispatch = useDispatch();
     const authState = useSelector((state) => state.auth)
+    const [postContent , setPostContent] = useState("");
+    const [fileContent , setFileContent] = useState();
+    const handleUpload = async () => {
+        
+    }
 
     
 
@@ -40,16 +45,18 @@ function Dashboard() {
             <div className={styles.scrollComponent}>
                 <div className={styles.createPostContainer}>
                     <img className={styles.userProfile}  src={`${BASE_URL}/${authState.user.userId?.profilePicture}`} alt="" />
-                    <textarea placeholder={"What's in your mind ?"} className={styles.textareaOfContent} name="" id=""></textarea>
+                    <textarea onChange={(e) => setPostContent(e.target.value)} value={postContent} placeholder={"What's in your mind ?"} className={styles.textareaOfContent} name="" id=""></textarea>
                     <label htmlFor="fileUpload">
                     <div className={styles.fab}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-</svg>
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
 
                     </div>
                     </label>
-                    <input type="file" hidden id='fileUpload' />
+                    <input onChange={(e) => setFileContent(e.target.files[0])} type="file" hidden id='fileUpload' />
+                    {postContent.length > 0 && <div className={styles.uploadButton}>Post</div>}
+                    
                 </div>
             </div>
         </DashboardLayout>

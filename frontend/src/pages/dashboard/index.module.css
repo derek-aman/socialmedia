@@ -10,8 +10,21 @@
     width: 70%;
     padding-inline: 0.8rem;
     gap: 1.2rem;
-    align-items: center;background: snow;
+    align-items: center;
+    background: snow;
+    position: relative;
     border-radius: 20px;
+}
+.uploadButton{
+    position: absolute;
+    right: 0;
+    bottom: -30%;
+    color: white;
+    background:#dc734d ;
+    border-radius: 20px;
+    padding-inline: 1.1rem;
+    padding-block: 0.1rem;
+    cursor: pointer;
 }
 
 .userProfile{
@@ -34,7 +47,7 @@
 .fab > svg{
     
     width: fit-content;
-    height: 40px;
+    height: 30px;
     color: white;
 }
 
