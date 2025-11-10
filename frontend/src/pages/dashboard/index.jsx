@@ -37,10 +37,10 @@ function Dashboard() {
   return (
     <UserLayout>
         <DashboardLayout>
-            <div className="scrollComponent">
+            <div className={styles.scrollComponent}>
                 <div className={styles.createPostContainer}>
-                    <img width={100} src={`${BASE_URL}/${authState.user.userId?.profilePicture}`} alt="" />
-                    <textarea name="" id=""></textarea>
+                    <img className={styles.userProfile}  src={`${BASE_URL}/${authState.user.userId?.profilePicture}`} alt="" />
+                    <textarea placeholder={"What's in your mind ?"} className={styles.textareaOfContent} name="" id=""></textarea>
                     <label htmlFor="fileUpload">
                     <div className={styles.fab}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
