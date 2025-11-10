@@ -5,7 +5,7 @@ import { getAboutUser, loginUser, registerUser , getAllUsers} from "../../action
 
 
 const initialState = {
-    user: [],
+    user:undefined,
     isError: false,
     isSuccess: false,
     isLoading:false,
@@ -85,7 +85,8 @@ const authSlice = createSlice({
         .addCase(getAllUsers.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isError = false;
-            state.all_users = action.payload
+            state.all_profiles_fetched = true;
+            state.all_users = action.payload.profiles
         })
     }
 })
