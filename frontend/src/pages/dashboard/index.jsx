@@ -1,5 +1,5 @@
 import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
-import { getAllPosts } from '@/config/redux/action/postAction';
+import { createPost, getAllPosts } from '@/config/redux/action/postAction';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,9 @@ function Dashboard() {
     const [postContent , setPostContent] = useState("");
     const [fileContent , setFileContent] = useState();
     const handleUpload = async () => {
-        
+        await dispatch(createPost({file: fileContent, body: postContent}))
+        setPostContent("")
+        setFileContent("")
     }
 
     
@@ -55,7 +57,7 @@ function Dashboard() {
                     </div>
                     </label>
                     <input onChange={(e) => setFileContent(e.target.files[0])} type="file" hidden id='fileUpload' />
-                    {postContent.length > 0 && <div className={styles.uploadButton}>Post</div>}
+                    {postContent.length > 0 && <div onClick={handleUpload} className={styles.uploadButton}>Post</div>}
                     
                 </div>
             </div>
