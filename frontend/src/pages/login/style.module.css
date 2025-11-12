@@ -1,79 +1,135 @@
-.container{
-    display: flex;
-    justify-content: center;
-    height: 90vh;
-    align-items: center;
-    background: snow;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f2f5, #ffffff);
+  font-family: 'Inter', sans-serif;
 }
 
-
-
-.cardContainer{
-    height: 80vh;
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    width:80vw;
-    background: white;
-    box-shadow: 10px 10px 15px rgb(173, 173, 173);
+.cardContainer {
+  display: flex;
+  width: 75vw;
+  height: 80vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
 }
 
-.cardContainer_left{
-    flex:0.6;
-    padding: 2rem;
-    text-align: center;
-
+.cardContainer_left {
+  flex: 0.6;
+  padding: 3rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-    .cardLeft_heading{
-        font-weight: bold;
-        font-size: 1.8rem;
-    }
-
-    .inputField{
-        padding-inline: 1.3rem;
-        padding-block: 0.8rem;
-        outline: none;
-        border-radius: 10px;
-        border: 1px solid silver;
-        width: 100%;
-    }
-
-    .inputContainers{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: 1.3rem;
-        max-width: 400px;
-        margin: 0 auto;
-        gap: 1.5rem;
-        
-    }
-    .inputRow{
-        width: fit-content;
-        display: flex;
-        gap: 1.2rem;
-
-    }
-
-    .buttonWithOutline{
-        padding: 0.8rem 1.3rem;
-        background: rgb(228, 224, 224);
-        width: 100%;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-
-.cardContainer_right{
-    flex: 0.4;
-    background: rgb(189, 96, 49);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    flex-direction: column;
-    gap: 1.2rem;
-    padding-inline:1.2rem ;
+.cardLeft_heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
+.statusMessage {
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.success {
+  color: #2b9348;
+}
+
+.error {
+  color: #d90429;
+}
+
+.inputContainers {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.inputRow {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.inputField {
+    width: 100%;
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+}
+
+.inputField:focus {
+  border-color: #ff7b00;
+  box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.15);
+}
+
+.mainButton {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ff7b00, #ff4800);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mainButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 123, 0, 0.3);
+}
+
+.cardContainer_right {
+  flex: 0.4;
+  background: linear-gradient(135deg, #dc734d, #b14d1b);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.switchText {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.switchButton {
+  background: white;
+  color: #dc734d;
+  border: none;
+  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.switchButton:hover {
+  background: #ffe5dc;
+  transform: scale(1.05);
+}
