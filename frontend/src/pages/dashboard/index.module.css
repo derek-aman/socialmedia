@@ -1,66 +1,140 @@
-
-.scrollComponent{
-    justify-content: center;
-    display: flex;
+.scrollComponent {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 0;
+  background: #f7f8fa;
 }
 
-.createPostContainer{
-    display: flex;
-    height: 10vh;
-    width: 70%;
-    padding-inline: 0.8rem;
-    gap: 1.2rem;
-    align-items: center;
-    background: snow;
-    position: relative;
-    border-radius: 20px;
-}
-.uploadButton{
-    position: absolute;
-    right: 0;
-    bottom: -30%;
-    color: white;
-    background:#dc734d ;
-    border-radius: 20px;
-    padding-inline: 1.1rem;
-    padding-block: 0.1rem;
-    cursor: pointer;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 60%;
+  max-width: 800px;
 }
 
-.userProfile{
-    border-radius: 100%;
-    height: 70%;
-    width: fit-content;
+/* --- Create Post --- */
+.createPostContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
-.createPostContainer > textarea{
-    width: 100%;
-}
-.fab{
-    background: silver;
-    border-radius: 100%;
-    justify-content: center;
-    display: flex;
-    
+.userProfile {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
 }
 
-.fab > svg{
-    
-    width: fit-content;
-    height: 30px;
-    color: white;
+.textareaOfContent {
+  flex: 1;
+  resize: none;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease;
 }
 
-.textareaOfContent{
-    width: 80%;
-    height: 30%;
-    border: 1px solid silver;
-    border-radius: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-inline: 1.5rem;
-    padding-block: 0.8rem;
-    outline: none;
+.textareaOfContent:focus {
+  border-color: #dc734d;
+}
 
-    
+.fab {
+  background: #ded6d3;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.3s ease;
+}
 
+.fab:hover {
+  background: #db6439;
+}
+
+.uploadButton {
+  position: absolute;
+  right: 1.5rem;
+  bottom: -1.2rem;
+  background: #be4f2a;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.uploadButton:hover {
+  background: #e28a64;
+}
+
+/*  Posts Section */
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.singleCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.singleCard_profileContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.cardProfile {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.postUserName {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0;
+  color: #333;
+}
+
+.postUserHandle {
+  font-size: 13px;
+  color: #888;
+}
+
+.postBody {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #444;
+}
+
+.postImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 0.8rem;
+  object-fit: cover;
 }

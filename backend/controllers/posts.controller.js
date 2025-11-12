@@ -31,7 +31,7 @@ export const createPost = async (req,res) => {
 
 export const  getAllPosts = async (req,res) => {
     try{
-       const posts = await Post.findOne().populate('userId', 'name userName email profilePicture ')
+       const posts = await Post.find().populate('userId', 'name userName email profilePicture ')
        return res.json({posts}) ;
         
     }catch (error) {
@@ -55,7 +55,7 @@ export const deletePost = async (req,res) => {
             return res.status(401).json({message: "Unauthorized"})
         }
 
-        await Post.deletePost({_id: post_id});
+        await Post.deleteOne({_id: post_id});
 
         return res.json({message: "Post deleted"})
         
