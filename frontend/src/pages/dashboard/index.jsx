@@ -188,10 +188,23 @@ function Dashboard() {
 
                     
                     <div>
-                    {postState.comments.map((postComment , index) => {
+                    {postState.comments.map((comment , index) => {
                        return (
-                        <div>
-                          <p>{postComment.body}</p>
+                        <div className={styles.singleComment} key={commentText._id}>
+                          <div className={styles.singleComment_profileContainer}>
+                              <img
+                        className={styles.cardProfile}
+                        src={`${BASE_URL}/${authState.user.userId?.profilePicture}`}
+                        alt="user"
+                      />
+
+                      <div>
+                        <p style={{fontWeight: "bold", fontSize: "1.2rem"}}>{comment.userId.name}</p>
+                        <p>{comment.userId?.userName}</p>
+                      </div>
+                      <p>{comment.body}</p>
+                          </div>
+                          
                         </div>
                        )
                     }) 

@@ -356,3 +356,24 @@ export const acceptConnectionRequest = async (req, res) => {
   }
 };
 
+
+export const getUserProfileAndUserBasedOnUsername = async (req ,res) => {
+    const {userName} = req.query;
+    try{
+        const user = await User.findOne({
+            userName
+        });
+
+        if(!user){
+            return res.status(404).json({message: "User not found"})
+        }
+        const userProfile = await Profile.findOne({userId:user._id})
+        .populate('userId', 'name userName email profilePicture');
+
+        return res.json({"Profile": userProfile})
+    } catch(err){
+    return res.status(500).json({ message: err.message });
+
+    }
+} 
+
