@@ -1,5 +1,5 @@
 import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
-import { createPost, deletePost, getAllPosts, incrementPostLike } from '@/config/redux/action/postAction';
+import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike, postComment } from '@/config/redux/action/postAction';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import UserLayout from '@/layout/UserLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import styles from './index.module.css';
 import { BASE_URL } from '@/config';
+import { resetPostId } from '@/config/redux/reducer/postReducer';
 
 function Dashboard() {
   const router = useRouter();
@@ -16,6 +17,8 @@ function Dashboard() {
 
   const [postContent, setPostContent] = useState('');
   const [fileContent, setFileContent] = useState();
+  const [commentText, setCommentText] = useState("");
+
 
   const handleUpload = async () => {
     await dispatch(createPost({ file: fileContent, body: postContent }));
@@ -142,7 +145,10 @@ function Dashboard() {
 
 
                         </div>
-                        <div className={styles.singleOptions_optionsContainer}>
+                        <div onClick={() => {
+                            dispatch(getAllComments({post_id: post._id}))
+                            console.log("Hi")
+                        }} className={styles.singleOptions_optionsContainer}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                             </svg>
@@ -166,6 +172,48 @@ function Dashboard() {
             </div>
           </div>
         </div>
+
+        {postState.postId !== "" && 
+            <div onClick={() => {
+                dispatch(resetPostId())
+            }}
+             className={styles.commentsContainer}>
+                <div onClick={(e) => {
+                  e.stopPropagation()
+                }} className={styles.allCommentsContainer}>
+
+                {postState.comments.length === 0 && <h2>No Comments yet...</h2>}
+
+                {postState.comments.length !== 0 && 
+
+                    
+                    <div>
+                    {postState.comments.map((postComment , index) => {
+                       return (
+                        <div>
+                          <p>{postComment.body}</p>
+                        </div>
+                       )
+                    }) 
+
+                    }
+
+                    </div>
+                  }
+
+                <div className={styles.postCommentContainer}>
+                  <input type="text " value={commentText} onChange={(e) => setCommentText(e.target.value)}  placeholder='Comment'/>
+                  <div onClick={async () => {
+                    await dispatch(postComment({post_id: postState.postId, body: commentText}))
+                    await dispatch(getAllComments({post_id:postState.postId}))
+                  }} className={styles.postCommentContainer_commentBtn}>
+                    <p>Comment</p>
+                  </div>
+                </div>
+                    
+                </div>
+            </div>
+        }
       </DashboardLayout>
     </UserLayout>
   );

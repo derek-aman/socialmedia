@@ -1,4 +1,4 @@
-import { getAllPosts } from "../../action/postAction"
+import { getAllComments, getAllPosts } from "../../action/postAction"
 import { createSlice } from "@reduxjs/toolkit"
 
 
@@ -49,9 +49,16 @@ const postSlice = createSlice({
             state.isError = true;
             state.posts = action.payload
         })
+        .addCase(getAllComments.fulfilled , (state, action) => {
+            state.postId = action.payload.post_id,
+            state.comments = action.payload.comments.comments
+        })
 
     }
 
 })
+
+export const {resetPostId} = postSlice.actions
+
 
 export default postSlice.reducer
