@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers } from '@/config/redux/action/authAction'
 import { BASE_URL } from '@/config';
 import styles from './indexx.module.css'
+import { useRouter } from 'next/router'
 
 
 
 const DiscoverPage = () => {
+
     const authState = useSelector((state) => state.auth)
     const dispatch = useDispatch();
     useEffect(() => {
@@ -16,6 +18,8 @@ const DiscoverPage = () => {
             dispatch(getAllUsers());
         }
     }, [])
+
+    const router = useRouter();
     
   return (
     <UserLayout>
@@ -25,7 +29,9 @@ const DiscoverPage = () => {
                 <div className={styles.allUserProfile}>
                     {authState.all_profiles_fetched && authState.all_users.map((user) => {
                         return(
-                            <div key={user._id} className={styles.userCard}>
+                            <div onClick={() => {
+                                router.push(`/view_profile/${user.userId?.userName}`)
+                            }} key={user._id} className={styles.userCard}>
                                 <img  className={styles.userCard_image} src={`${BASE_URL}/${user.userId?.profilePicture}`} alt="profile" />
                                 <div>
                                 <h3>{user.userId?.name}</h3>
