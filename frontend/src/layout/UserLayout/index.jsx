@@ -5,7 +5,7 @@ const UserLayout = ({children}) => {
   return (
     <div>
     <Navbar/>
-    {children}
+    <main>{children}</main>
       
     </div>
   )

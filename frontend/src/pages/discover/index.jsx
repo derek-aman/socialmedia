@@ -23,7 +23,7 @@ const DiscoverPage = () => {
     
   return (
     <UserLayout>
-        <DashboardLayout>
+        
             <div>
                 <h1>Discover Page</h1>
                 <div className={styles.allUserProfile}>
@@ -42,7 +42,7 @@ const DiscoverPage = () => {
                     })}
                 </div>
             </div>
-        </DashboardLayout>
+        
     </UserLayout>
   )
 }

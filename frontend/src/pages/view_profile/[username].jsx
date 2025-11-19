@@ -1,10 +1,11 @@
 import UserLayout from '@/layout/UserLayout';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
-import Dashboard from '../dashboard';
+import styles from './index.module.css'
 import { clientServer } from '@/config';
+import DashboardLayout from '@/layout/DashboardLayout';
 
-const viewProfilePage = (userProfile) => {
+const viewProfilePage = ({userProfile}) => {
 
     const searchParams = useSearchParams();
   useEffect(() => {
@@ -13,9 +14,12 @@ const viewProfilePage = (userProfile) => {
   })    
   return (
     <UserLayout>
-      <Dashboard>
-        <div>{userProfile.userId?.name}</div>
-      </Dashboard>
+      <DashboardLayout>
+        {/* <div>{userProfile?.userId?.name}</div> */}
+        <div className={styles.container}>
+
+        </div>
+      </DashboardLayout>
     </UserLayout>
   )
 }
@@ -56,11 +60,11 @@ export async function getServerSideProps(context) {
     };
   
 
-    return {
-      props: {
-        userProfile: null,
-      },
-    };
+    // return {
+    //   props: {
+    //     userProfile: null,
+    //   },
+    // };
   }
 
 

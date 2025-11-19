@@ -109,7 +109,7 @@ function Dashboard() {
                       <div>
                       <div style={{display : "flex", gap: "1.2rem", justifyContent: "space-between" }}>
                         <p style={{fontWeight: "bold"}} className={styles.postUserName}>{post.userId?.name}</p>
-                        {post.userId._id === authState.user.userId._id && <div onClick={ async ()=> {
+                        {post.userId?._id === authState.user.userId?._id && <div onClick={ async ()=> {
                            await dispatch(deletePost({ post_id: post._id}))
                            await dispatch(getAllPosts())
                         }} style={{cursor: "pointer"}}>
