@@ -19,6 +19,7 @@ const viewProfilePage = ({userProfile}) => {
     const authState = useSelector((state) => state.auth);
     const [userPosts, setUserPosts] = useState([]);
     const [isCurrentUserInConnection, setIsCurrentUserInConnection] = useState(false);
+    const [isConnectionNull, setIsConnectionNull] = useState(true);
     
 
     const getUserPost = async () => {
@@ -42,6 +43,9 @@ let post = postReducer.posts.filter((post) => {
       console.log(authState.connections, userProfile.userId?._id)
       if(authState.connections.some(user => user.connectionId?._id === userProfile.userId?._id)){
         setIsCurrentUserInConnection(true)
+        if(authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status_accepted === true ){
+          setIsConnectionNull(false)
+        }
       }
 
 
@@ -123,7 +127,7 @@ let post = postReducer.posts.filter((post) => {
         </div> */}
 
         {isCurrentUserInConnection ? 
-          <button className={styles.btnPrimary}>Connected</button>:
+          <button className={styles.btnPrimary}>{isConnectionNull ? "Pending": "Connected" }</button>:
           <button onClick={() => {
             dispatch(sendConnectionRequest({token : localStorage.getItem("token"), connectionId: userProfile.userId._id}))
           }} className={styles.btnPrimary}>Connect</button> 
@@ -138,6 +142,22 @@ let post = postReducer.posts.filter((post) => {
           </p>
         </div>
 
+      </div>
+
+      <div className={styles.workHistory}>
+              <h4>Work History</h4>
+              <div className={styles.workHistoryContainer}>
+                {
+                  userProfile.pastWork.map((work , index) => {
+                    return (
+                      <div className={styles.workHistoryCard}>
+                      <p style={{ fontWeight: "bold", display:"flex", alignItems: "center", gap:"0.8rem"}}>{work.company} - {work.position}</p>
+                      <p>{work.year}</p>
+                      </div>
+                    )
+                  })
+                }
+              </div>
       </div>
     </div>
   </DashboardLayout>

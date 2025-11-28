@@ -86,6 +86,8 @@ export const sendConnectionRequest = createAsyncThunk(
                 // user_id: user.userId._id
                 connectionId: user.connectionId, 
             })
+
+            thunkAPI.dispatch(getConnectionRequest({token: user.token}))
             return thunkAPI.fulfillWithValue(response.data)
 
         }catch (error){
