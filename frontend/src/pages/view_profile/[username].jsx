@@ -7,7 +7,7 @@ import DashboardLayout from '@/layout/DashboardLayout';
 import { BASE_URL } from '@/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
-import { getConnectionsRequest,sendConnectionRequest } from '@/config/redux/action/authAction';
+import { getConnectionRequest,sendConnectionRequest } from '@/config/redux/action/authAction';
 import { useRouter } from 'next/router';
  
 
@@ -23,7 +23,7 @@ const viewProfilePage = ({userProfile}) => {
 
     const getUserPost = async () => {
       await dispatch(getAllPosts());
-      // await dispatch(getConnectionsRequest({token: localStorage.getItem("token")}));
+      await dispatch(getConnectionRequest({token: localStorage.getItem("token")}));
     }
 
     useEffect(() => {
@@ -125,7 +125,7 @@ let post = postReducer.posts.filter((post) => {
         {isCurrentUserInConnection ? 
           <button className={styles.btnPrimary}>Connected</button>:
           <button onClick={() => {
-            dispatch(sendConnectionRequest({token : localStorage.getItem("token"), user}))
+            dispatch(sendConnectionRequest({token : localStorage.getItem("token"), user_id: userProfile.userId._id}))
           }} className={styles.btnPrimary}>Connect</button> 
         }
 
