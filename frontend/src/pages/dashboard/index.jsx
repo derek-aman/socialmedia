@@ -119,7 +119,7 @@ function Dashboard() {
                         </div>}
 
                         </div>
-                        <span  className={styles.postUserHandle}>{post.userId?.userName}</span>
+                        <span  className={styles.postUserHandle}>@{post.userId?.userName}</span>
                       </div>
                     </div>
 
@@ -200,7 +200,7 @@ function Dashboard() {
 
                       <div>
                         <p style={{fontWeight: "bold", fontSize: "1.2rem"}}>{comment.userId.name}</p>
-                        <p>{comment.userId?.userName}</p>
+                        <p>@{comment.userId?.userName}</p>
                       </div>
                       <p>{comment.body}</p>
                           </div>

@@ -1,4 +1,160 @@
-.container{
-    padding: 1.3rem;
-    background: rgb(230 ,230 ,230);
+/* MAIN WRAPPER */
+.container {
+  padding: 0;
+  background: #f5f5f7;
+  min-height: 100vh;
+  border-radius: 10px;
 }
+
+/* COVER / BANNER SECTION */
+.coverSection {
+  width: 100%;
+  height: 38vh;
+  background: url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1580&q=80");
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 0 20px 20px;
+  position: relative;
+}
+
+/* DARK GRADIENT OVERLAY */
+.coverOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.6)
+  );
+  border-radius: inherit;
+}
+
+/* PROFILE IMAGE */
+.profileImage {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  bottom: -70px;
+  left: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  /* border: 5px solid white; */
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.25);
+  /* background: white; */
+}
+
+/* MAIN CONTENT */
+.profileContent {
+  margin-top: 90px;
+  padding: 1.5rem 2rem;
+}
+
+/* NAME + USERNAME */
+.nameSection h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #222;
+}
+
+.username {
+  margin-top: 4px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* STATS ROW */
+.statsRow {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.statsRow div {
+  text-align: center;
+}
+
+.statsRow h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #111;
+}
+
+.statsRow p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.card_profileContainer{
+  display: flex;
+}
+
+.card_profileContainer > img{
+  width: 3.4rem;
+  height: auto;
+  height: 3.4rem;
+  object-fit: cover;
+}
+
+.connectBtn{
+  padding-inline: 0.8rem;
+  padding-block: 0.3rem;
+  background: rgba(3, 93, 183, 0, 905);
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ACTION BUTTONS */
+.actionButtons {
+  margin-top: 1.8rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btnPrimary {
+  padding: 0.6rem 1.5rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btnSecondary {
+  padding: 0.6rem 1.5rem;
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* BIO SECTION */
+.bioBox {
+  margin-top: 2rem;
+  background: white;
+  padding: 1.3rem;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+}
+
+.bioBox h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.bioBox p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+
