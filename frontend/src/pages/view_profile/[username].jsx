@@ -125,7 +125,7 @@ let post = postReducer.posts.filter((post) => {
         {isCurrentUserInConnection ? 
           <button className={styles.btnPrimary}>Connected</button>:
           <button onClick={() => {
-            dispatch(sendConnectionRequest({token : localStorage.getItem("token"), user_id: userProfile.userId._id}))
+            dispatch(sendConnectionRequest({token : localStorage.getItem("token"), connectionId: userProfile.userId._id}))
           }} className={styles.btnPrimary}>Connect</button> 
         }
 
