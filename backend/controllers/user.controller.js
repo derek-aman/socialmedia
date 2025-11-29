@@ -6,6 +6,8 @@ import PDFDocument from 'pdfkit'
 import fs from 'fs'
 import ConnectionRequest from '../models/connections.model.js'
 
+
+
 export const activeCheck = async (req ,res ) => {
     return res.status(200).json({message: "RUNNING"})
 }
@@ -13,38 +15,57 @@ export const activeCheck = async (req ,res ) => {
 
 
 
-const convertUserDataToPDF = async (userData) => {
-     
-  
-  const doc = new PDFDocument();
-  const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
-  const fullPath = "uploads/" + outputPath;
-  const stream = fs.createWriteStream(fullPath);
+const convertUserDataToPDF = (userData) => {
+  return new Promise((resolve, reject) => {
 
-  doc.pipe(stream);
-    doc.image(`uploads/${userData.userId.profilePicture}`, { align: "center", width: 100 });
+    const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
+    const fullPath = "uploads/" + outputPath;
+
+    // Ensure uploads folder exists
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
+    }
+
+    const doc = new PDFDocument();
+    const stream = fs.createWriteStream(fullPath);
+
+    doc.pipe(stream);
+
+    // Safe Profile Image
+    const imagePath = `uploads/${userData.userId.profilePicture}`;
+    if (userData.userId.profilePicture && fs.existsSync(imagePath)) {
+      doc.image(imagePath, { width: 120, align: "center" });
+    } else {
+      doc.fontSize(12).text("No Profile Picture Available");
+    }
+
+    // Profile Details
     doc.fontSize(14).text(`Name : ${userData.userId.name}`);
-    doc.fontSize(14).text(`Username : ${userData.userId.userName}`);
-    doc.fontSize(14).text(`Email : ${userData.userId.email}`);
-    doc.fontSize(14).text(`Bio : ${userData.bio}`);
-    doc.fontSize(14).text(`Current Position : ${userData.currentPost}`);
+    doc.text(`Username : ${userData.userId.userName}`);
+    doc.text(`Email : ${userData.userId.email}`);
+    doc.text(`Bio : ${userData.bio}`);
+    doc.text(`Current Position : ${userData.currentPost}`);
+    doc.moveDown();
 
-    doc.fontSize(14).text("Past Work: ")
-    userData.pastWork.forEach((work, index) => {
-        doc.fontSize(14).text(`Company Name: ${work.companyName} `)
-        doc.fontSize(14).text(`Position: ${work.position} `)
-
-        doc.fontSize(14).text(`Years: ${work.years} `)
-
-
-    })
+    doc.text("Past Work :", { underline: true });
+    userData.pastWork.forEach((work) => {
+      doc.text(`Company: ${work.company}`);
+      doc.text(`Position: ${work.position}`);
+      doc.text(`Years: ${work.years}`);
+      doc.moveDown();
+    });
 
     doc.end();
 
-    return outputPath;
+    // VERY IMPORTANT — wait for stream to finish writing
+    stream.on("finish", () => resolve(outputPath));
+    stream.on("error", (err) => reject(err));
+  });
+};
 
 
-}
+
+
 
 export const register = async (req , res )=> {
     try{
@@ -215,37 +236,40 @@ export const getAllUserProfile =  async (req , res)=>{
 
 
 
+
+
 export const downloadProfile = async (req, res) => {
   try {
-    const userId = req.query.id; // ✅ read from query
+    const id = req.query.id;
 
-    if (!userId) {
-      return res.status(400).json({ message: "userId (query param 'id') is required" });
+    if (!id) return res.status(400).json({ message: "User ID required" });
+
+    // Fetch profile
+    const userData = await Profile.findOne({ userId: id })
+      .populate("userId", "name email userName profilePicture");
+
+    if (!userData) {
+      return res.status(404).json({ message: "Profile not found" });
     }
 
-    const userProfile = await Profile.findOne({ userId }).populate(
-      "userId",
-      "name email userName profilePicture"
-    );
+    // Generate PDF (NOW WAITS UNTIL FINISHED!)
+    const pdfFileName = await convertUserDataToPDF(userData);
 
-    if (!userProfile) {
-      return res.status(404).json({ message: "Profile not found for given userId" });
+    const filePath = `uploads/${pdfFileName}`;
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(500).json({ message: "PDF not created" });
     }
 
-    const outputPath = await convertUserDataToPDF(userProfile);
+    return res.download(filePath);
 
-    // ✅ Optional: directly send file for download
-    return res.download(outputPath, "resume.pdf", (err) => {
-      if (err) {
-        console.error("Error sending file:", err);
-        res.status(500).json({ message: "Error downloading PDF" });
-      }
-    });
   } catch (error) {
-    console.error("Error generating profile PDF:", error);
     return res.status(500).json({ message: error.message });
   }
 };
+
+
+
 
 export const sendConnectionRequest = async (req,res) => {
     const { token , connectionId } = req.body;
