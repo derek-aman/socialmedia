@@ -3,30 +3,30 @@ import mongoose from "mongoose";
 const educationSchema = new mongoose.Schema({
     school:{
         type: String,
-        default : ''
+        default : 'Haldia Institute Of Technology'
     },
     degree:{
         type: String,
-        default : ''
+        default : 'Btech'
     },
     fieldOfStudy:{
         type: String,
-        default : ''
+        default : 'Electrical Engineering'
     }
 });
 
 const workSchema = new mongoose.Schema({
     company:{
         type: String,
-        default : ''
+        default : 'Google'
     },
     position:{
         type: String,
-        default : ''
+        default : 'SDE1'
     },
     years:{
         type: String,
-        default : ''
+        default : '2'
     },
 });
 
@@ -37,11 +37,11 @@ const ProfileSchema = new mongoose.Schema({
     },
     bio:{
         type: String,
-        default : ''
+        default : 'I am a MERN stack developer '
     },
     currentPost:{
         type: String,
-        default : ''
+        default : 'FUll stack developer'
     },
     education:{
         type: [educationSchema],
@@ -49,7 +49,13 @@ const ProfileSchema = new mongoose.Schema({
     },
     pastWork:{
         type: [workSchema],
-        default : []
+        default : [
+            {
+      company: "Google",
+      position: "SDE1",
+      years: "2"
+    }
+        ]
     },
 });
 
