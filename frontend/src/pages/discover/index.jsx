@@ -23,6 +23,7 @@ const DiscoverPage = () => {
     
   return (
     <UserLayout>
+    <DashboardLayout>
         
             <div>
                 <h1>Discover Page</h1>
@@ -42,6 +43,7 @@ const DiscoverPage = () => {
                     })}
                 </div>
             </div>
+            </DashboardLayout>
         
     </UserLayout>
   )

@@ -323,7 +323,7 @@ export const getMyConnectionsRequest = async (req,res) => {
   }
 };
 export const whatAreMyConnections = async (req,res) => {
-    const {token} = req.body;
+    const {token} = req.query;
 
     try {
 

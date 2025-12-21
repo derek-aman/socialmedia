@@ -1,0 +1,30 @@
+.userCard {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.3rem;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.1) ;
+}
+
+.profilePicture > img {
+    width: 6.5rem;
+    border-radius: 50%;
+}
+
+.myConnections {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding-bottom: 1.5rem ;
+    cursor: pointer;
+}
+
+.btnPrimary {
+  padding: 0.4rem 1rem;
+  background: #ff7b00;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
