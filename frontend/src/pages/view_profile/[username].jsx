@@ -7,7 +7,7 @@ import DashboardLayout from '@/layout/DashboardLayout';
 import { BASE_URL } from '@/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
-import { getConnectionRequest,sendConnectionRequest } from '@/config/redux/action/authAction';
+import { getConnectionRequest,getMyConnectionsRequests,sendConnectionRequest } from '@/config/redux/action/authAction';
 import { useRouter } from 'next/router';
  
 
@@ -25,6 +25,7 @@ const viewProfilePage = ({userProfile}) => {
     const getUserPost = async () => {
       await dispatch(getAllPosts());
       await dispatch(getConnectionRequest({token: localStorage.getItem("token")}));
+      await dispatch(getMyConnectionsRequests({token: localStorage.getItem("token")}))
     }
 
     useEffect(() => {
@@ -43,13 +44,20 @@ let post = postReducer.posts.filter((post) => {
       console.log(authState.connections, userProfile.userId?._id)
       if(authState.connections.some(user => user.connectionId?._id === userProfile.userId?._id)){
         setIsCurrentUserInConnection(true)
-        if(authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status_accepted === true ){
+        if(authState.connections.find(user => user.connectionId?._id === userProfile.userId._id).status_accepted === true ){
+          setIsConnectionNull(false)
+        }
+      }
+
+      if(authState.connectionRequest.some(user => user.userId?._id === userProfile.userId?._id)){
+        setIsCurrentUserInConnection(true)
+        if(authState.connectionRequest.find(user => user.userId?._id === userProfile.userId._id).status_accepted === true ){
           setIsConnectionNull(false)
         }
       }
 
 
-    }, [authState.connections])
+    }, [authState.connections, authState.connectionRequest])
 
     useEffect(() => {
       getUserPost();
