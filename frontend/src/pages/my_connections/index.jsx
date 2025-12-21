@@ -69,7 +69,9 @@ const MyConnectionsPage = () => {
                     .filter((connection) => connection.status_accepted != null)
                     .map((user, index) => (
                       <div
-                        key={index}
+                       onClick={() => {
+                      router.push(`/view_profile/${user.userId?.userName}`)
+                    }} key={index} className={styles.userCard}
                         style={{
                           display: "flex",
                           alignItems: "center",
