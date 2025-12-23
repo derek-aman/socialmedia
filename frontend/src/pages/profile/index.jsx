@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
 import { getAboutUser, getConnectionRequest,getMyConnectionsRequests,sendConnectionRequest } from '@/config/redux/action/authAction';
 import { useRouter } from 'next/router';
+import { current } from '@reduxjs/toolkit';
 
 const ProfilePage = () => {
     const authState = useSelector((state) => state.auth)
@@ -36,6 +37,36 @@ const ProfilePage = () => {
           
     }, [authState.user, postReducer.posts])
 
+    const updateProfilePicture = async (file) => {
+      const formData = new FormData();
+      formData.append("profile_picture", file);
+      formData.append("token", localStorage.getItem("token"));
+
+      const response = await clientServer.post("/update_profile_picture", formData,{
+        headers: {
+          'Content-Type':'multipart/form-data',
+        },
+      });
+
+      dispatch(getAboutUser({token: localStorage.getItem("token")}))
+    }
+
+    const updateProfileData = async () => {
+      const request = await clientServer.post("/user_update", {
+        token: localStorage.getItem("token"),
+        name: userProfile.userId?.name,
+      });
+
+      const response = await clientServer.post("/update_profile_data", {
+        token: localStorage.getItem("token"),
+        bio: userProfile.bio,
+        currentPost: userProfile.currentPost,
+        pastWork: userProfile.pastWork,
+        education: userProfile.education
+      });
+      dispatch(getAboutUser({token: localStorage.getItem("token")}));
+    }
+
     
 
   return (
@@ -49,21 +80,36 @@ const ProfilePage = () => {
 
       {/* COVER PHOTO + PROFILE IMAGE */}
       <div className={styles.coverSection}>
-        <div className={styles.coverOverlay}></div>
-
+        <div className={styles.coverOverlay}>
+         
+        </div>
+          
+       <div className={styles.profileImageWrapper}>
         <img
           className={styles.profileImage}
           src={`${BASE_URL}/${userProfile?.userId?.profilePicture}`}
           alt="profile"
         />
+        <label htmlFor="profilePictureUoload">
+        <p className={styles.editOption}>Edit</p>
+        </label>
+        <input onChange={(e) => {
+          updateProfilePicture(e.target.files[0])
+        }} hidden className={styles.editName} type="file" name="" id="profilePictureUoload" />
+        </div>
+       
       </div>
+      
 
       {/* PROFILE CONTENT */}
       <div className={styles.profileContent}>
 
         {/* NAME + USERNAME */}
         <div className={styles.nameSection}>
-          <h2>{userProfile?.userId?.name}</h2>
+          {/* <h2>{userProfile?.userId?.name}</h2> */}
+          <input className={styles.nameEdit} type="text" value={userProfile?.userId?.name} onChange={(e) => {
+            setUserProfile({...userProfile, userId: {...userProfile.userId, name: e.target.value}})
+          }} />
           <p className={styles.username}>@{userProfile?.userId?.userName}</p>
         </div>
 
@@ -105,11 +151,7 @@ const ProfilePage = () => {
         </div>
         </div>
 
-        {/* ACTION BUTTONS */}
-        {/* <div className={styles.actionButtons}>
-          <button className={styles.btnPrimary}>Connect</button>
-          <button className={styles.btnSecondary}>Message</button>
-        </div> */}
+      
           <div style={{display : "flex", alignItems: "center", gap: "1.2rem"}}>
         
 
@@ -124,12 +166,20 @@ const ProfilePage = () => {
         </div>
 
         {/* BIO SECTION */}
-        <div className={styles.bioBox}>
+        {/* <div className={styles.bioBox}>
           <h4>Bio</h4>
           <p>
             {userProfile?.bio ||
               "No bio added yet. This space can contain user’s introduction, skills, hobbies or profession."}
           </p>
+        </div> */}
+        <div className={styles.bioBox}>
+        <h4>Bio</h4>
+          <textarea value={userProfile?.bio } onChange={(e) => {
+            setUserProfile({...userProfile, bio: e.target.value})
+          }} rows = {Math.max(3, Math.ceil(userProfile?.bio.length/80))} style={{width: "100%"}} >
+
+          </textarea>
         </div>
 
       </div>
@@ -148,7 +198,15 @@ const ProfilePage = () => {
                   })
                 }
               </div>
+              <button className={styles.addWorkButton} onClick={() => {
+
+              }}>Add Work</button>
       </div>
+      {userProfile != authState.user && <div  onClick={() => {
+        updateProfileData()
+      }} className={styles.buttonJoin}>
+        Update Profile
+      </div>}
     </div>
     }
         </DashboardLayout>
