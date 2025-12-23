@@ -186,6 +186,7 @@
   font-size: 0.95rem;
   color: #555;
   line-height: 1.5;
+  gap: 1.2rem;
 }
 
 .workHistoryContainer{
@@ -202,6 +203,7 @@
   padding-block: 1rem;
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgb(173 173 173);
+  
 }
 
 .nameEdit{
@@ -217,6 +219,7 @@
 
 .buttonJoin{
     background:#dc734d ;
+    margin: 30px;
     border-radius: 10px;
     padding-block: 0.6rem;
     padding-inline: 1.2rem;
@@ -225,6 +228,52 @@
     font-weight: bold;
     cursor: pointer;
     width: fit-content;
+}
+
+.addWorkButton{
+  padding-inline: 1.2rem;
+  margin-top: 20px;
+  background: white;
+  border: 1px dotted silver;
+  border-radius: 10px;
+  padding-block:0.6rem ;
+  cursor: pointer;
+}
+
+.commentsContainer{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.allCommentsContainer{
+    width: 40vw;
+    height: fit-content;
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    padding:1.4rem ;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.inputField {
+  width: 100%;
+  padding-block: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+ 
 }
 
 

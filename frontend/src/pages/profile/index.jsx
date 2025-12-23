@@ -16,6 +16,7 @@ const ProfilePage = () => {
     const postReducer = useSelector((state) => state.postReducer)
     const [userProfile, setUserProfile] = useState({})
     const [userPosts, setUserPosts] = useState([]);
+    const [isModalOpen , setIsModalOpen] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAboutUser({token: localStorage.getItem("token")}))
@@ -36,6 +37,13 @@ const ProfilePage = () => {
     
           
     }, [authState.user, postReducer.posts])
+
+    const [inputData, setInputData] = useState({ company: '', position: '', years: ''});
+
+    const handleWorkInputChange = (e) => {
+      const {name, value} = e.target;
+      setInputData({...inputData, [name]: value});
+    }
 
     const updateProfilePicture = async (file) => {
       const formData = new FormData();
@@ -184,7 +192,7 @@ const ProfilePage = () => {
 
       </div>
 
-      <div className={styles.workHistory}>
+      <div className={styles.bioBox}>
               <h4>Work History</h4>
               <div className={styles.workHistoryContainer}>
                 {
@@ -199,7 +207,7 @@ const ProfilePage = () => {
                 }
               </div>
               <button className={styles.addWorkButton} onClick={() => {
-
+                setIsModalOpen(true)
               }}>Add Work</button>
       </div>
       {userProfile != authState.user && <div  onClick={() => {
@@ -207,8 +215,55 @@ const ProfilePage = () => {
       }} className={styles.buttonJoin}>
         Update Profile
       </div>}
+
+      
     </div>
     }
+
+    {isModalOpen && 
+            <div onClick={() => {
+                setIsModalOpen(false)
+            }}
+             className={styles.commentsContainer}>
+                <div onClick={(e) => {
+                  e.stopPropagation()
+                }} className={styles.allCommentsContainer}>
+
+                <input
+                onChange={handleWorkInputChange}
+                className={styles.inputField}
+                name='company'
+                type="text"
+                placeholder="Enter company"
+              />
+              <input
+                onChange={handleWorkInputChange}
+                className={styles.inputField}
+                name='position'
+                type="text"
+                placeholder="Enter Position"
+              />
+
+              <input
+                onChange={handleWorkInputChange}
+                className={styles.inputField}
+                name='years'
+                type="number"
+                placeholder="Years"
+              />
+
+              <div onClick={() => {
+                setUserProfile({...userProfile, pastWork: [...userProfile.pastWork, inputData]})
+                setIsModalOpen(false)
+              }} className={styles.buttonJoin}>Add Work</div>
+
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        }
         </DashboardLayout>
       </UserLayout>
     </div>
