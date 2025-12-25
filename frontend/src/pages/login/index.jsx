@@ -19,11 +19,11 @@ const Login = () => {
 
   useEffect(() => {
     if (authState.loggedIn) router.push('/dashboard');
-  }, [authState.loggedIn]);
+  }, [authState.loggedIn,router]);
 
   useEffect(() => {
     dispatch(emptyMessage());
-  }, [userLoginMethod]);
+  }, [userLoginMethod,dispatch]);
 
   const handleRegister = () => {
     dispatch(registerUser({ userName, email, password, name }));

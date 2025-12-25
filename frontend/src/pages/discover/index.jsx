@@ -4,6 +4,7 @@ import DashboardLayout from '@/layout/DashboardLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers } from '@/config/redux/action/authAction'
 import { BASE_URL } from '@/config';
+import Image from 'next/image';
 import styles from './indexx.module.css'
 import { useRouter } from 'next/router'
 
@@ -17,7 +18,7 @@ const DiscoverPage = () => {
         if(!authState.all_profiles_fetched){
             dispatch(getAllUsers());
         }
-    }, [])
+    }, [authState.all_profiles_fetched,dispatch])
 
     const router = useRouter();
     
@@ -33,7 +34,8 @@ const DiscoverPage = () => {
                             <div onClick={() => {
                                 router.push(`/view_profile/${user.userId?.userName}`)
                             }} key={user._id} className={styles.userCard}>
-                                <img  className={styles.userCard_image} src={`${BASE_URL}/${user.userId?.profilePicture}`} alt="profile" />
+                                <Image  className={styles.userCard_image} src={`${BASE_URL}/${user.userId?.profilePicture}`} alt="profile" width={500} // Actual width or aspect ratio base
+  height={300} />
                                 <div>
                                 <h3>{user.userId?.name}</h3>
                                 <p className={styles.userName}>@{user.userId?.userName}</p>

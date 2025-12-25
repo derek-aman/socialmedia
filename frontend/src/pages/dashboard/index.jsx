@@ -7,6 +7,7 @@ import UserLayout from '@/layout/UserLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import styles from './index.module.css';
 import { BASE_URL } from '@/config';
+import Image from 'next/image';
 import { resetPostId } from '@/config/redux/reducer/postReducer';
 
 function Dashboard() {
@@ -36,7 +37,7 @@ function Dashboard() {
     if (!authState.all_profiles_fetched) {
       dispatch(getAllUsers());
     }
-  }, [authState.isTokenThere]);
+  }, [authState.isTokenThere,authState.all_profiles_fetched,dispatch]);
 
   if (!authState.user) {
     return (
@@ -56,10 +57,13 @@ function Dashboard() {
             
             
             <div className={styles.createPostContainer}>
-              <img
+              <Image
                 className={styles.userProfile}
                 src={`${BASE_URL}/${authState.user.userId?.profilePicture}`}
                 alt="profile"
+                width={50}  // Add this
+                height={50}
+                
               />
               <textarea
                 onChange={(e) => setPostContent(e.target.value)}
@@ -101,10 +105,12 @@ function Dashboard() {
                 .map((post) => (
                   <div key={post._id} className={styles.singleCard}>
                     <div className={styles.singleCard_profileContainer}>
-                      <img
+                      <Image
                         className={styles.cardProfile}
                         src={`${BASE_URL}/${post.userId?.profilePicture}`}
                         alt="user"
+                        width={50}  
+                        height={50}
                       />
                       <div>
                       <div style={{display : "flex", gap: "1.2rem", justifyContent: "space-between" }}>
@@ -126,10 +132,13 @@ function Dashboard() {
                     <div className={styles.postBody}>
                       <p>{post.body}</p>
                       {post.media && (
-                        <img
+                        <Image
                           src={`${BASE_URL}/${post.media}`}
                           alt="post-media"
                           className={styles.postImage}
+                          width={800}  
+                          height={500} 
+                          sizes="100vw"
                         />
                       )}
                     </div>
@@ -186,17 +195,19 @@ function Dashboard() {
                 {postState.comments.length === 0 && <h2>No Comments yet...</h2>}
 
                 {postState.comments.length !== 0 && 
-
+                  
                     
                     <div>
                     {postState.comments.map((comment , index) => {
                        return (
-                        <div className={styles.singleComment} key={commentText._id}>
+                        <div  className={styles.singleComment} key={comment._id}>
                           <div className={styles.singleComment_profileContainer}>
-                              <img
+                              <Image
                         className={styles.cardProfile}
                         src={`${BASE_URL}/${authState.user.userId?.profilePicture}`}
                         alt="user"
+                        width={500} 
+                        height={300}
                       />
 
                       <div>

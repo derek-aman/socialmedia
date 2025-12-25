@@ -59,7 +59,7 @@
 }
 
 .navBarOptionContainer p:hover {
-  color: white;
+  color: rgb(221, 109, 44);
   transform: translateY(-1px);
 }
 

@@ -1,7 +1,14 @@
 {
   "/_app": "pages/_app.js",
+  "/api/hello": "pages/api/hello.js",
   "/_error": "pages/_error.js",
+  "/dashboard": "pages/dashboard.html",
+  "/": "pages/index.html",
   "/_document": "pages/_document.js",
-  "/profile": "pages/profile.js",
-  "/dashboard": "pages/dashboard.js"
+  "/discover": "pages/discover.html",
+  "/my_connections": "pages/my_connections.html",
+  "/login": "pages/login.html",
+  "/profile": "pages/profile.html",
+  "/view_profile/[username]": "pages/view_profile/[username].js",
+  "/404": "pages/404.html"
 }

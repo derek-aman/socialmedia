@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import { clientServer } from '@/config';
+import Image from 'next/image';
 import DashboardLayout from '@/layout/DashboardLayout';
 import { BASE_URL } from '@/config';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,57 +12,84 @@ import { getConnectionRequest,getMyConnectionsRequests,sendConnectionRequest } f
 import { useRouter } from 'next/router';
  
 
-const viewProfilePage = ({userProfile}) => {
+const ViewProfilePage = ({userProfile}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const dispatch = useDispatch();
     const postReducer = useSelector((state) => state.postReducer)
     const authState = useSelector((state) => state.auth);
-    const [userPosts, setUserPosts] = useState([]);
-    const [isCurrentUserInConnection, setIsCurrentUserInConnection] = useState(false);
-    const [isConnectionNull, setIsConnectionNull] = useState(true);
+    // const [userPosts, setUserPosts] = useState([]);
+    // const [isCurrentUserInConnection, setIsCurrentUserInConnection] = useState(false);
+    // const [isConnectionNull, setIsConnectionNull] = useState(true);
+    const userPosts = postReducer.posts.filter((post) => {
+        return post?.userId?.username === router.query.userName;
+    });
+
     
 
-    const getUserPost = async () => {
-      await dispatch(getAllPosts());
-      await dispatch(getConnectionRequest({token: localStorage.getItem("token")}));
-      await dispatch(getMyConnectionsRequests({token: localStorage.getItem("token")}))
-    }
+    const isCurrentUserInConnection = authState.connections.some(
+        user => user.connectionId?._id === userProfile.userId?._id
+    ) || authState.connectionRequest.some(
+        user => user.userId?._id === userProfile.userId?._id
+    );
 
-    useEffect(() => {
-//       let post = (postReducer?.posts ?? []).filter(post => 
-//     post?.userId?.username === router?.query?.username
-// );
-let post = postReducer.posts.filter((post) => {
-  return post?.userId?.username === router.query.userName
-})
+    const isConnectionAccepted = authState.connections.find(
+        user => user.connectionId?._id === userProfile.userId?._id
+    )?.status_accepted || authState.connectionRequest.find(
+        user => user.userId?._id === userProfile.userId?._id
+    )?.status_accepted;
+
+    const isConnectionNull = !isConnectionAccepted;
+
+//     useEffect(() => {
+// //       let post = (postReducer?.posts ?? []).filter(post => 
+// //     post?.userId?.username === router?.query?.username
+// // );
+// let post = postReducer.posts.filter((post) => {
+//   return post?.userId?.username === router.query.userName
+// })
 
 
-      setUserPosts(post);
-    },[postReducer.posts])
+    //   setUserPosts(post);
+    // },[postReducer.posts,router.query.userName])
 
-    useEffect(() => {
-      console.log(authState.connections, userProfile.userId?._id)
-      if(authState.connections.some(user => user.connectionId?._id === userProfile.userId?._id)){
-        setIsCurrentUserInConnection(true)
-        if(authState.connections.find(user => user.connectionId?._id === userProfile.userId._id).status_accepted === true ){
-          setIsConnectionNull(false)
+    // useEffect(() => {
+    //   console.log(authState.connections, userProfile.userId?._id)
+    //   if(authState.connections.some(user => user.connectionId?._id === userProfile.userId?._id)){
+    //     setIsCurrentUserInConnection(true)
+    //     if(authState.connections.find(user => user.connectionId?._id === userProfile.userId._id).status_accepted === true ){
+    //       setIsConnectionNull(false)
+    //     }
+    //   }
+
+    //   if(authState.connectionRequest.some(user => user.userId?._id === userProfile.userId?._id)){
+    //     setIsCurrentUserInConnection(true)
+    //     if(authState.connectionRequest.find(user => user.userId?._id === userProfile.userId._id).status_accepted === true ){
+    //       setIsConnectionNull(false)
+    //     }
+    //   }
+
+
+    // }, [authState.connections, authState.connectionRequest,userProfile.userId._id])
+
+    // const getUserPost = async () => {
+    //   const token = localStorage.getItem("token");
+    //   await dispatch(getAllPosts());
+    //   await dispatch(getConnectionRequest({token: localStorage.getItem("token")}));
+    //   await dispatch(getMyConnectionsRequests({token}))
+    // }
+    const getUserPost = React.useCallback(async () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            await dispatch(getAllPosts());
+            await dispatch(getConnectionRequest({ token }));
+            await dispatch(getMyConnectionsRequests({ token }));
         }
-      }
-
-      if(authState.connectionRequest.some(user => user.userId?._id === userProfile.userId?._id)){
-        setIsCurrentUserInConnection(true)
-        if(authState.connectionRequest.find(user => user.userId?._id === userProfile.userId._id).status_accepted === true ){
-          setIsConnectionNull(false)
-        }
-      }
-
-
-    }, [authState.connections, authState.connectionRequest])
+    }, [dispatch]);
 
     useEffect(() => {
       getUserPost();
-    }, [])
+    }, [getUserPost])
 
 
 
@@ -74,10 +102,12 @@ let post = postReducer.posts.filter((post) => {
       <div className={styles.coverSection}>
         <div className={styles.coverOverlay}></div>
 
-        <img
+        <Image
           className={styles.profileImage}
           src={`${BASE_URL}/${userProfile?.userId?.profilePicture}`}
           alt="profile"
+          width={50}
+          height={30}
         />
       </div>
 
@@ -113,7 +143,7 @@ let post = postReducer.posts.filter((post) => {
             <div key={post._id} className={styles.postCard}>
             <div className={styles.card}>
             <div className={styles.card_profileContainer}>
-            {post.media !== "" ? <img src={`${BASE_URL}/${post.media}`} alt=''/> : <div style={{width: "3.4rem", height: "3.4rem"}}></div>}
+            {post.media !== "" ? <Image src={`${BASE_URL}/${post.media}`} alt='' width={50} height={30}/> : <div style={{width: "3.4rem", height: "3.4rem"}}></div>}
 
             </div>
             <p>{post.body}</p>
@@ -168,7 +198,7 @@ let post = postReducer.posts.filter((post) => {
                 {
                   userProfile.pastWork.map((work , index) => {
                     return (
-                      <div className={styles.workHistoryCard}>
+                      <div key={work.id} className={styles.workHistoryCard}>
                       <p style={{ fontWeight: "bold", display:"flex", alignItems: "center", gap:"0.8rem"}}>{work.company} - {work.position}</p>
                       <p>{work.years} years</p>
                       </div>
@@ -230,4 +260,4 @@ export async function getServerSideProps(context) {
 
 
 
-export default viewProfilePage
+export default ViewProfilePage

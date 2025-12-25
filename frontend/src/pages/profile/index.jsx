@@ -5,6 +5,7 @@ import styles from './index.module.css'
 import { clientServer } from '@/config';
 import DashboardLayout from '@/layout/DashboardLayout';
 import { BASE_URL } from '@/config';
+import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
 import { getAboutUser, getConnectionRequest,getMyConnectionsRequests,sendConnectionRequest } from '@/config/redux/action/authAction';
@@ -14,29 +15,30 @@ import { current } from '@reduxjs/toolkit';
 const ProfilePage = () => {
     const authState = useSelector((state) => state.auth)
     const postReducer = useSelector((state) => state.postReducer)
-    const [userProfile, setUserProfile] = useState({})
-    const [userPosts, setUserPosts] = useState([]);
+    const [userProfile, setUserProfile] = useState( authState.user || null)
+
     const [isModalOpen , setIsModalOpen] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAboutUser({token: localStorage.getItem("token")}))
         dispatch(getAllPosts())
-    },[])
+    },[dispatch])
 
-    useEffect(() => {
-        
-        if(authState.user != undefined){
-            setUserProfile(authState.user)
-            let post = postReducer.posts.filter((post) => {
-      return post?.userId?.username === authState.user.userName
-    })
-    setUserPosts(post);
-        }
-        
-    
-    
-          
-    }, [authState.user, postReducer.posts])
+    // useEffect(() => {
+    //     let isMounted = true;
+    //     if (authState.user && !userProfile && isMounted) {
+    //         setUserProfile(authState.user);
+    //     }
+    //     return () => { isMounted = false };
+    // }, [authState.user, userProfile]);
+
+    if (authState.user && !userProfile) {
+        setUserProfile(authState.user);
+    }
+
+    const userPosts = postReducer.posts.filter((post) => {
+        return post?.userId?.username === authState.user?.userName;
+    });
 
     const [inputData, setInputData] = useState({ company: '', position: '', years: ''});
 
@@ -93,10 +95,12 @@ const ProfilePage = () => {
         </div>
           
        <div className={styles.profileImageWrapper}>
-        <img
+        <Image
           className={styles.profileImage}
           src={`${BASE_URL}/${userProfile?.userId?.profilePicture}`}
           alt="profile"
+           width={500} 
+           height={300}
         />
         <label htmlFor="profilePictureUoload">
         <p className={styles.editOption}>Edit</p>
@@ -144,7 +148,8 @@ const ProfilePage = () => {
             <div key={post._id} className={styles.postCard}>
             <div className={styles.card}>
             <div className={styles.card_profileContainer}>
-            {post.media !== "" ? <img src={`${BASE_URL}/${post.media}`} alt=''/> : <div style={{width: "3.4rem", height: "3.4rem"}}></div>}
+            {post.media !== "" ? <Image src={`${BASE_URL}/${post.media}`} alt=''  width={500} 
+           height={300}/> : <div style={{width: "3.4rem", height: "3.4rem"}}></div>}
 
             </div>
             <p>{post.body}</p>
@@ -191,7 +196,7 @@ const ProfilePage = () => {
                 {
                   userProfile.pastWork.map((work , index) => {
                     return (
-                      <div className={styles.workHistoryCard}>
+                      <div key={`work-${index}`} className={styles.workHistoryCard}>
                       <p style={{ fontWeight: "bold", display:"flex", alignItems: "center", gap:"0.8rem"}}>{work.company} - {work.position}</p>
                       <p>{work.years} years</p>
                       </div>

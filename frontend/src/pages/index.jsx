@@ -31,7 +31,11 @@ export default function Home() {
 
 
         <div className={styles.mainContainer_right}>
-          <img src="images/CONNECTIVITY.png"></img>
+          <Image src="/images/CONNECTIVITY.png" 
+          alt="Connectivity Illustration" 
+          width={500}                   
+          height={300}
+          ></Image>
         </div>
 
       </div>

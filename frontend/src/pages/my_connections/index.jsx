@@ -4,6 +4,7 @@ import DashboardLayout from '@/layout/DashboardLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { AcceptConnection, getMyConnectionsRequests  } from '@/config/redux/action/authAction'
 import styles from './index.module.css'
+import Image from 'next/image';
 import { BASE_URL } from '@/config'
 import { useRouter } from 'next/router'
 
@@ -16,7 +17,7 @@ const MyConnectionsPage = () => {
 
   useEffect(() => {
     dispatch(getMyConnectionsRequests({token: localStorage.getItem("token") }));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if(authState.connectionRequest.length != 0){
@@ -50,10 +51,11 @@ const MyConnectionsPage = () => {
               router.push(`/view_profile/${user.userId?.userName}`)
             }
           >
-            <img
+            <Image
               className={styles.avatar}
               src={`${BASE_URL}/${user.userId?.profilePicture}`}
-              alt="profile"
+              alt="profile" width={500} // Actual width or aspect ratio base
+  height={300}
             />
 
             <div className={styles.userInfo}>
@@ -96,10 +98,11 @@ const MyConnectionsPage = () => {
               router.push(`/view_profile/${user.userId?.userName}`)
             }
           >
-            <img
+            <Image
               className={styles.avatar}
               src={`${BASE_URL}/${user.userId?.profilePicture}`}
-              alt="profile"
+              alt="profile" width={500} // Actual width or aspect ratio base
+  height={300}
             />
 
             <div className={styles.userInfo}>
