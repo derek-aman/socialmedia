@@ -12,13 +12,13 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <nav className={styles.navBar}>
-      {/* left part */}
+      
       <h1 style={{cursor:"pointer"}} onClick={() => {
         router.push("/")
       }}>Networq</h1>
 
 
-      {/* right part */}
+      
       <div className={styles.navBarOptionContainer}>
       {authState.profileFetched && <div>
         <div style={{display: "flex", gap: "1.2rem"}}>

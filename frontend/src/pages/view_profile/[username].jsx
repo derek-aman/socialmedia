@@ -70,7 +70,7 @@ let post = postReducer.posts.filter((post) => {
   <DashboardLayout>
     <div className={styles.container}>
 
-      {/* COVER PHOTO + PROFILE IMAGE */}
+     
       <div className={styles.coverSection}>
         <div className={styles.coverOverlay}></div>
 
@@ -81,16 +81,16 @@ let post = postReducer.posts.filter((post) => {
         />
       </div>
 
-      {/* PROFILE CONTENT */}
+    
       <div className={styles.profileContent}>
 
-        {/* NAME + USERNAME */}
+       
         <div className={styles.nameSection}>
           <h2>{userProfile?.userId?.name}</h2>
           <p className={styles.username}>@{userProfile?.userId?.userName}</p>
         </div>
 
-        {/* STATS */}
+        
         <div style={{display: "flex", gap: "0.7rem"}}>
         <div style={{flex: "0.8"}} className={styles.statsRow}>
           <div>
@@ -128,7 +128,7 @@ let post = postReducer.posts.filter((post) => {
         </div>
         </div>
 
-        {/* ACTION BUTTONS */}
+        
         {/* <div className={styles.actionButtons}>
           <button className={styles.btnPrimary}>Connect</button>
           <button className={styles.btnSecondary}>Message</button>
@@ -151,7 +151,7 @@ let post = postReducer.posts.filter((post) => {
         </div>
         </div>
 
-        {/* BIO SECTION */}
+        
         <div className={styles.bioBox}>
           <h4>Bio</h4>
           <p>

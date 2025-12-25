@@ -36,7 +36,7 @@ const DiscoverPage = () => {
                                 <img  className={styles.userCard_image} src={`${BASE_URL}/${user.userId?.profilePicture}`} alt="profile" />
                                 <div>
                                 <h3>{user.userId?.name}</h3>
-                                <p className={styles.userName}>{user.userId?.userName}</p>
+                                <p className={styles.userName}>@{user.userId?.userName}</p>
                                 </div>
                             </div>
                         )

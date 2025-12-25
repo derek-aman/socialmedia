@@ -37,7 +37,7 @@ const Login = () => {
     <UserLayout>
       <div className={styles.container}>
         <div className={styles.cardContainer}>
-          {/* Left Side */}
+          
           <div className={styles.cardContainer_left}>
             <p className={styles.cardLeft_heading}>
               {userLoginMethod ? 'Welcome Back ' : 'Create Your Account '}
@@ -95,7 +95,7 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Right Side */}
+          
           <div className={styles.cardContainer_right}>
             <p className={styles.switchText}>
               {userLoginMethod

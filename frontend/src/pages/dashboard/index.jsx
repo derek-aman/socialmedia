@@ -54,7 +54,7 @@ function Dashboard() {
         <div className={styles.scrollComponent}>
           <div className={styles.wrapper}>
             
-            {/* Create Post Section */}
+            
             <div className={styles.createPostContainer}>
               <img
                 className={styles.userProfile}
@@ -94,7 +94,7 @@ function Dashboard() {
               )}
             </div>
 
-            {/* Posts Section */}
+           
             <div className={styles.postsContainer}>
               {(Array.isArray(postState.posts) ? postState.posts : [postState.posts])
                 .filter(Boolean)

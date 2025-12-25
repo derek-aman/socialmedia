@@ -1,235 +1,267 @@
+
 .scrollComponent {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 2rem 0;
-  background: #f7f8fa;
+  padding: 2.5rem 0;
+  background: #f7f8fb;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 60%;
-  max-width: 800px;
+  width: 100%;
+  max-width: 720px;
+  padding: 0 1rem;
 }
 
-/* --- Create Post --- */
+
 .createPostContainer {
   display: flex;
-  align-items: flex-start;
   gap: 1rem;
-  background: #fff;
-  border-radius: 16px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.2rem 1.4rem 2.4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
   position: relative;
 }
 
 .userProfile {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  height: 45px;
-  width: 45px;
   object-fit: cover;
 }
 
 .textareaOfContent {
   flex: 1;
   resize: none;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 0.8rem 1rem;
+  border: none;
+  background: #f2f3f5;
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
   font-size: 15px;
-  font-family: 'Inter', sans-serif;
   outline: none;
-  transition: border-color 0.2s ease;
 }
 
-.textareaOfContent:focus {
-  border-color: #dc734d;
+.textareaOfContent::placeholder {
+  color: #888;
 }
 
 .fab {
-  background: #ded6d3;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
+  background: #be4f2a;
+  color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 28px;
-  height: 28px;
+  justify-content: center;
   cursor: pointer;
-  color: #fff;
-  transition: background 0.3s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .fab:hover {
-  background: #db6439;
+  transform: scale(1.05);
+  background: #d1663f;
 }
 
 .uploadButton {
   position: absolute;
-  right: 1.5rem;
-  bottom: -1.2rem;
+  right: 1.4rem;
+  bottom: 0.1rem;
   background: #be4f2a;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 20px;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
+  padding: 0.45rem 1.2rem;
   font-size: 14px;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(190, 79, 42, 0.35);
 }
 
 .uploadButton:hover {
-  background: #e28a64;
+  background: #d1663f;
 }
 
-/*  Posts Section */
+
 .postsContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.6rem;
 }
 
 .singleCard {
-  background: #fff;
-  border-radius: 16px;
-  padding: 1rem 1.2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.3rem 1.4rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease;
 }
+
+.singleCard:hover {
+  transform: translateY(-2px);
+}
+
 
 .singleCard_profileContainer {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.9rem;
   margin-bottom: 0.6rem;
 }
 
 .cardProfile {
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
   object-fit: cover;
 }
 
 .postUserName {
   font-weight: 600;
   font-size: 15px;
-  margin: 0;
-  color: #333;
+  color: #222;
 }
 
 .postUserHandle {
   font-size: 13px;
-  color: #888;
+  color: #777;
 }
+
 
 .postBody {
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: #444;
+  margin-top: 0.4rem;
 }
 
 .postImage {
   width: 100%;
-  height: auto;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-top: 0.8rem;
   object-fit: cover;
 }
 
-.optionsContainer{
-    display: flex;
-    height: 20% ;
-    width: 100%;
-    justify-content: space-between;
-    padding-block: 0.6rem;
-}
-.singleOptions_optionsContainer{
-   display: flex; 
-   align-items: center;
-   gap: 0.5rem;
-   justify-content: center;
-   cursor: pointer;
 
+.optionsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid #f0f0f0;
 }
 
-.singleOptions_optionsContainer > svg {
-    height: 100%;
-    width: 25%;
-    min-width: 1rem;
-    padding-bottom: 1.2rem;
-
-}
-
-.commentsContainer{
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    background: rgba(0, 0, 0, 0.7);
-    overflow: hidden;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-}
-
-.allCommentsContainer{
-    min-width: 40svw;
-    height: 80vh;
-    background: white;
-    border-radius: 10px;
-    position: relative;
-    padding:1.4rem ;
-}
-
-.postCommentContainer{
-  position: absolute;
-  bottom: 1.2rem;
-  left: 1.2rem;
-  width: 90%;
+.singleOptions_optionsContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-
-}
-
-.postCommentContainer > input{
-  flex: 0.9;
-  padding-inline: 1.5rem;
-  padding-block: 1.2rem;
-  border: none;
-  outline: none;
-  background-color: rgb(228 , 228, 228);
-  border-radius: 10px;
-}
-
-.postCommentContainer > input:focus{
-  border: 1px solid silver;
-}
-
-
-
-.postCommentContainer_commentBtn{
-  flex: 0.1;
-  width: fit-content;
-  padding: 1.2rem;
-  background: #be4f2a;
-  border-radius: 10px;
-  text-align: center;
-  color: white;
+  gap: 0.45rem;
   cursor: pointer;
+  color: #555;
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-@media screen and (max-width: 600px) {
-  .allCommentsContainer{
-    width: 90svh;
-  }
+.singleOptions_optionsContainer:hover {
+  background: #f2f3f5;
+  color: #be4f2a;
+}
+
+.singleOptions_optionsContainer svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+.commentsContainer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.allCommentsContainer {
+  width: 420px;
+  max-width: 92%;
+  height: 80vh;
+  background: white;
+  border-radius: 18px;
+  padding: 1.4rem;
+  position: relative;
+  overflow-y: auto;
+}
+
+
+.singleComment {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.singleComment_profileContainer {
+  display: flex;
+  gap: 0.8rem;
+}
+
+
+.postCommentContainer {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 90%;
+  max-width: 600px; 
+  padding: 1rem;
+
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+
+  border-radius: 16px;
   
 }
 
+/* Input */
+.postCommentContainer input {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: none;
+  background: #f2f3f5;
+  outline: none;
+  font-size: 0.95rem;
+}
 
+/* Button */
+.postCommentContainer_commentBtn {
+  padding: 0.9rem 1.3rem;
+  background: #be4f2a;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.postCommentContainer_commentBtn:hover {
+  background: #d1663f;
+}
+
+
+
+@media (max-width: 600px) {
+  .wrapper {
+    max-width: 100%;
+  }
+
+  .singleCard {
+    padding: 1.1rem;
+  }
+}

@@ -1,27 +1,63 @@
 
-.allUserProfile{
-    max-width: 80%;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+.allUserProfile {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.4rem;
+  padding: 0 1rem;
 }
 
-.userCard{
-    display: flex;
-    gap: 1.2rem;
-    cursor: pointer;
-    padding: 1.3rem;
-    align-items: center;
-    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.1);
+
+.userCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.userCard_image{
-    width: 10%;
-    border-radius: 50%;
+.userCard:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(
+    135deg,
+    rgba(238, 151, 94, 0.12),
+    rgba(139, 92, 246, 0.12)
+  );
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.1);
 }
 
-.userName{
-    font-size: 13px;
-  color: #888;
+
+.userCard_image {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #f0f0f0;
+}
+
+
+.userCard h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.userName {
+  font-size: 13px;
+  color: #777;
+  margin-top: 2px;
+}
+
+
+@media (max-width: 600px) {
+  .allUserProfile {
+    grid-template-columns: 1fr;
+  }
 }

@@ -86,7 +86,7 @@ const ProfilePage = () => {
         
              <div className={styles.container}>
 
-      {/* COVER PHOTO + PROFILE IMAGE */}
+      
       <div className={styles.coverSection}>
         <div className={styles.coverOverlay}>
          
@@ -109,19 +109,19 @@ const ProfilePage = () => {
       </div>
       
 
-      {/* PROFILE CONTENT */}
+    
       <div className={styles.profileContent}>
 
-        {/* NAME + USERNAME */}
+        
         <div className={styles.nameSection}>
-          {/* <h2>{userProfile?.userId?.name}</h2> */}
+          
           <input className={styles.nameEdit} type="text" value={userProfile?.userId?.name} onChange={(e) => {
             setUserProfile({...userProfile, userId: {...userProfile.userId, name: e.target.value}})
           }} />
           <p className={styles.username}>@{userProfile?.userId?.userName}</p>
         </div>
 
-        {/* STATS */}
+        
         <div className={styles.statscontainer} style={{display: "flex", gap: "0.7rem"}}>
         <div style={{flex: "0.8"}} className={styles.statsRow}>
           <div>
@@ -173,14 +173,7 @@ const ProfilePage = () => {
         </div>
         </div>
 
-        {/* BIO SECTION */}
-        {/* <div className={styles.bioBox}>
-          <h4>Bio</h4>
-          <p>
-            {userProfile?.bio ||
-              "No bio added yet. This space can contain user’s introduction, skills, hobbies or profession."}
-          </p>
-        </div> */}
+       
         <div className={styles.bioBox}>
         <h4>Bio</h4>
           <textarea value={userProfile?.bio } onChange={(e) => {
