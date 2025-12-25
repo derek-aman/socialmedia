@@ -1,7 +1,9 @@
-# ===== Backend =====
+
 backend/node_modules/
 backend/uploads/
 backend/.env
+
+frontend/node_modules
 
 
 

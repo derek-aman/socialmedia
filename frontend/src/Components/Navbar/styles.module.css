@@ -50,7 +50,7 @@
 
 
 .navBarOptionContainer p:first-child {
-  color: #6b7280;
+  color: white
 }
 
 
@@ -59,17 +59,17 @@
 }
 
 .navBarOptionContainer p:hover {
-  color: #b05a13;
+  color: white;
   transform: translateY(-1px);
 }
 
 
 .buttonJoin {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background:rgb(209, 119, 23);
   border-radius: 999px;
 
   padding: 0.6rem 1.4rem;
-  color: white;
+  color: #be4f2a;
 
   font-size: 0.85rem;
   font-weight: 600;
@@ -81,7 +81,7 @@
 
 .buttonJoin:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 10px 25px rgba(230, 112, 9, 0.35);
 }
 
 
