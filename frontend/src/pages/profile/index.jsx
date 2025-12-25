@@ -122,7 +122,7 @@ const ProfilePage = () => {
         </div>
 
         {/* STATS */}
-        <div style={{display: "flex", gap: "0.7rem"}}>
+        <div className={styles.statscontainer} style={{display: "flex", gap: "0.7rem"}}>
         <div style={{flex: "0.8"}} className={styles.statsRow}>
           <div>
             <h3>128</h3>
@@ -139,7 +139,7 @@ const ProfilePage = () => {
         </div>
         <div style={{flex: "0.2"}} >
         <h3>Recent Activity</h3>
-        {userPosts.map((post) => {
+        {userPosts.slice(0,1).map((post) => {
           return (
             <div key={post._id} className={styles.postCard}>
             <div className={styles.card}>
@@ -219,6 +219,10 @@ const ProfilePage = () => {
       
     </div>
     }
+
+    
+
+        
 
     {isModalOpen && 
             <div onClick={() => {

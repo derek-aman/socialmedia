@@ -133,3 +133,9 @@
   background: #ffe5dc;
   transform: scale(1.05);
 }
+
+@media only screen and (max-width:600px){
+    .cardContainer{
+      flex-direction: column;
+    }
+}
