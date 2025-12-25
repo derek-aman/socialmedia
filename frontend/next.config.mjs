@@ -4,10 +4,15 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: 'networq-n0fq.onrender.com',
+        pathname: '/**', // Matches all images from this host
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: '9090',
-        pathname: '/**', // Matches all paths on this host
+        pathname: '/**',
       },
     ],
   },
