@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'networq-n0fq.onrender.com',
+        hostname: 'netrorkbackend.onrender.com',
         pathname: '/**', // Matches all images from this host
       },
       {
