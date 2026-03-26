@@ -65,3 +65,5 @@ npm run dev
 # Run Frontend (from /frontend folder)
 npm run dev
 ```
+<img width="3902" height="2663" alt="diagram-export-3-26-2026-11_23_44-PM" src="https://github.com/user-attachments/assets/ca520828-feaa-45a4-b8c3-0f3e20c04b0d" />
+<img width="3902" height="2663" alt="diagram-export-3-26-2026-11_23_44-PM" src="https://github.com/user-attachments/assets/734424ef-f367-41f2-b1b7-73c5496bb132" />
