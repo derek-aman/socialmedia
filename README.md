@@ -65,12 +65,11 @@ npm run dev
 # Run Frontend (from /frontend folder)
 npm run dev
 ```
-## API Flow
-
-<img width="3902" height<img width="1020" height="1230" alt="diagram-export-3-26-2026-11_24_35-PM" src="https://github.com/user-attachments/assets/53274461-1dd6-4f93-bbda-04ebb33e0506" />
-="2663" alt="diagram-export-3-26-2026-11_23_44-PM" src="https://github.com/user-attachments/assets/ca520828-feaa-45a4-b8c3-0f3e20c04b0d" />
 
 ## Data Model
 
+<img width="1020" height="1230" alt="diagram-export-3-26-2026-11_24_35-PM" src="https://github.com/user-attachments/assets/53274461-1dd6-4f93-bbda-04ebb33e0506" />
 
-![Uploading diagram-export-3-26-2026-11_24_35-PM.png…]()
+## API Flow
+
+<img width="1020" height="1230" alt="diagram-export-3-26-2026-11_24_35-PM" src="https://github.com/user-attachments/assets/c7d88718-f771-4a9d-ad49-0f972c09ebc7" />
