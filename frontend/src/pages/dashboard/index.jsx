@@ -1,7 +1,7 @@
 import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
 import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike, postComment } from '@/config/redux/action/postAction';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useMemo} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UserLayout from '@/layout/UserLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
@@ -20,7 +20,7 @@ function Dashboard() {
   const [postContent, setPostContent] = useState('');
   const [fileContent, setFileContent] = useState();
   const [commentText, setCommentText] = useState('');
-  const [likedPosts, setLikedPosts] = useState(new Set());
+
 
   const handleUpload = async () => {
     await dispatch(createPost({ file: fileContent, body: postContent }));
@@ -30,10 +30,10 @@ function Dashboard() {
   };
 
   const handleLike = async (postId) => {
-    setLikedPosts((prev) => new Set([...prev, postId]));
-    await dispatch(incrementPostLike({ post_id: postId }));
-    dispatch(getAllPosts());
-  };
+  // Remove: setLikedPosts((prev) => new Set([...prev, postId]));
+  await dispatch(incrementPostLike({ post_id: postId }));
+  dispatch(getAllPosts());
+};
 
   useEffect(() => {
     if (authState.isTokenThere) {
@@ -45,17 +45,15 @@ function Dashboard() {
     }
   }, [authState.isTokenThere, authState.all_profiles_fetched, dispatch]);
 
-  // Ye useEffect add karo existing useEffect ke neeche
-useEffect(() => {
-  if (postState.posts.length > 0 && authState.user) {
-    const alreadyLiked = new Set(
-      postState.posts
-        .filter(post => post.likedBy?.includes(authState.user.userId?._id))
-        .map(post => post._id)
-    );
-    setLikedPosts(alreadyLiked);
-  }
+const likedPosts = useMemo(() => {
+  if (!postState.posts?.length || !authState.user) return new Set();
+  return new Set(
+    postState.posts
+      .filter(post => post.likedBy?.includes(authState.user.userId?._id))
+      .map(post => post._id)
+  );
 }, [postState.posts, authState.user]);
+
 
   if (!authState.user) {
     return (
