@@ -1,60 +1,119 @@
-
-.allUserProfile {
-  max-width: 900px;
-  margin: 1.5rem auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.4rem;
-  padding: 0 1rem;
+.page {
+  padding: 2rem 0.5rem 4rem;
 }
 
+.pageHeader {
+  margin-bottom: 2rem;
+  padding: 0 0.2rem;
+}
+
+.pageTitle {
+  font-family: var(--font-display, 'DM Serif Display', Georgia, serif);
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--text-primary, #f0eef8);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.pageSubtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted, #7b7a8e);
+  letter-spacing: 0.02em;
+}
+
+.allUserProfile {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.9rem;
+}
 
 .userCard {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.2rem;
-  background: #ffffff;
-  border-radius: 16px;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  background: var(--bg-panel, #111116);
+  border: 1px solid var(--border, rgba(255,255,255,0.07));
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  animation: fadeUp 0.35s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .userCard:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(
-    135deg,
-    rgba(238, 151, 94, 0.12),
-    rgba(139, 92, 246, 0.12)
-  );
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.1);
+  border-color: var(--border-glow, rgba(168,85,247,0.35));
+  background: var(--bg-hover, #18181f);
+  transform: translateY(-2px);
 }
 
+.avatarWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
 
 .userCard_image {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  flex-shrink: 0;
-  border: 2px solid #f0f0f0;
+  border: 1.5px solid var(--border-glow, rgba(168,85,247,0.35));
+  display: block;
 }
 
+.onlineDot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 1.5px solid var(--bg-panel, #111116);
+}
 
-.userCard h3 {
-  font-size: 16px;
+.userCard_info {
+  flex: 1;
+  min-width: 0;
+}
+
+.userCard_info h3 {
+  font-size: 0.88rem;
   font-weight: 600;
-  color: #222;
-  margin: 0;
+  color: var(--text-primary, #f0eef8);
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userName {
-  font-size: 13px;
-  color: #777;
-  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--text-muted, #7b7a8e);
+  margin: 0;
 }
 
+.arrowIcon {
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.arrowIcon svg {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted, #7b7a8e);
+}
+
+.userCard:hover .arrowIcon {
+  opacity: 1;
+}
 
 @media (max-width: 600px) {
   .allUserProfile {

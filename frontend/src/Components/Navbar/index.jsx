@@ -5,48 +5,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '@/config/redux/reducer/authReducer';
 
 const Navbar = () => {
+  const router = useRouter();
+  const authState = useSelector((state) => state.auth)
+  const dispatch = useDispatch();
 
-    const router = useRouter();
-    const authState = useSelector((state) => state.auth)
-    const dispatch = useDispatch();
   return (
-    <div className={styles.container}>
-      <nav className={styles.navBar}>
-      
-      <h1 style={{cursor:"pointer"}} onClick={() => {
-        router.push("/")
-      }}>Networq</h1>
+    <header className={styles.header}>
+      <nav className={styles.nav}>
+        <button className={styles.logo} onClick={() => router.push("/")}>
+          <span className={styles.logoDot} />
+          <span className={styles.logoText}>nexus</span>
+        </button>
 
-
-      
-      <div className={styles.navBarOptionContainer}>
-      {authState.profileFetched && <div>
-        <div style={{display: "flex", gap: "1.2rem"}}>
-        <p>Hey, {authState.user.userId?.name} </p>
-        <p onClick={() => {
-          router.push("/profile")
-        }} style={{fontWeight: "bold", cursor:"pointer"}}>Profile</p>
-        <p onClick={() => {
-          localStorage.removeItem("token")
-          router.push("/login")
-          dispatch(reset())
-        }} style={{fontWeight: "bold", cursor:"pointer"}}>Logout</p>
-
-
-
+        <div className={styles.actions}>
+          {authState.profileFetched ? (
+            <>
+              <span className={styles.greeting}>Hey, {authState.user.userId?.name}</span>
+              <button onClick={() => router.push("/profile")} className={styles.navBtn}>Profile</button>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  router.push("/login");
+                  dispatch(reset());
+                }}
+                className={styles.navBtnGhost}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <button onClick={() => router.push("/login")} className={styles.joinBtn}>
+              Get Started
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          )}
         </div>
-      </div>}
-      {!authState.profileFetched && <div  onClick={() => {
-                router.push("/login")
-                }} className={styles.buttonJoin}>
-                <p>Be a part</p>
-                </div>}
-        
-      </div>
-      
-
       </nav>
-    </div>
+    </header>
   )
 }
 

@@ -4,6 +4,12 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import postRoutes from './routes/posts.routes.js'
 import userRoutes from './routes/user.routes.js'
+import path from "path";
+import { fileURLToPath } from "url";
+import redisClient from './redis/redisClient.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 
@@ -14,9 +20,13 @@ app.use(cors());
 app.use(express.json());
 app.use(postRoutes);
 app.use(userRoutes);
-app.use(express.static("uploads"))
+// app.use(express.static("uploads"))
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-
+// app.get('/flush-cache', async (req, res) => {
+//   await redisClient.flushAll();
+//   res.json({ message: "Cache cleared!" });
+// });
 const start = async () => {
     const connectDB = await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB connected successfully");

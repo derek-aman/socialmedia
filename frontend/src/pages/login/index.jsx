@@ -19,95 +19,79 @@ const Login = () => {
 
   useEffect(() => {
     if (authState.loggedIn) router.push('/dashboard');
-  }, [authState.loggedIn,router]);
+  }, [authState.loggedIn, router]);
 
   useEffect(() => {
     dispatch(emptyMessage());
-  }, [userLoginMethod,dispatch]);
-
-  const handleRegister = () => {
-    dispatch(registerUser({ userName, email, password, name }));
-  };
-
-  const handleLogin = () => {
-    dispatch(loginUser({ email, password }));
-  };
+  }, [userLoginMethod, dispatch]);
 
   return (
     <UserLayout>
       <div className={styles.container}>
-        <div className={styles.cardContainer}>
-          
-          <div className={styles.cardContainer_left}>
-            <p className={styles.cardLeft_heading}>
-              {userLoginMethod ? 'Welcome Back ' : 'Create Your Account '}
+        {/* background blobs */}
+        <div className={styles.blob1} />
+        <div className={styles.blob2} />
+
+        <div className={styles.card}>
+          {/* ── LEFT FORM ── */}
+          <div className={styles.formSide}>
+            <div className={styles.formHeader}>
+              <span className={styles.logoDot} />
+              <span className={styles.logoText}>nexus</span>
+            </div>
+
+            <h1 className={styles.heading}>
+              {userLoginMethod ? 'Welcome back.' : 'Join the network.'}
+            </h1>
+            <p className={styles.subheading}>
+              {userLoginMethod ? 'Sign in to continue.' : 'Create your account today.'}
             </p>
 
             {authState.message?.message && (
-              <p
-                className={`${styles.statusMessage} ${
-                  authState.isError ? styles.error : styles.success
-                }`}
-              >
+              <div className={`${styles.statusMsg} ${authState.isError ? styles.error : styles.success}`}>
                 {authState.message.message}
-              </p>
+              </div>
             )}
 
-            <div className={styles.inputContainers}>
+            <div className={styles.fields}>
               {!userLoginMethod && (
-                <div className={styles.inputRow}>
-                  <input
-                    onChange={(e) => setUserName(e.target.value)}
-                    className={styles.inputField}
-                    type="text"
-                    placeholder="Username"
-                  />
-                  <input
-                    onChange={(e) => setName(e.target.value)}
-                    className={styles.inputField}
-                    type="text"
-                    placeholder="Full Name"
-                  />
+                <div className={styles.fieldRow}>
+                  <input onChange={(e) => setUserName(e.target.value)} className={styles.input} type="text" placeholder="Username" />
+                  <input onChange={(e) => setName(e.target.value)} className={styles.input} type="text" placeholder="Full Name" />
                 </div>
               )}
-
-              <input
-                onChange={(e) => setEmailAdress(e.target.value)}
-                className={styles.inputField}
-                type="text"
-                placeholder="Email"
-              />
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.inputField}
-                type="password"
-                placeholder="Password"
-              />
-
+              <input onChange={(e) => setEmailAdress(e.target.value)} className={styles.input} type="text" placeholder="Email address" />
+              <input onChange={(e) => setPassword(e.target.value)} className={styles.input} type="password" placeholder="Password" />
               <button
-                onClick={() =>
-                  userLoginMethod ? handleLogin() : handleRegister()
+                className={styles.mainBtn}
+                onClick={() => userLoginMethod
+                  ? dispatch(loginUser({ email, password }))
+                  : dispatch(registerUser({ userName, email, password, name }))
                 }
-                className={styles.mainButton}
               >
-                {userLoginMethod ? 'Sign In' : 'Sign Up'}
+                {userLoginMethod ? 'Sign In' : 'Create Account'}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
               </button>
             </div>
           </div>
 
-          
-          <div className={styles.cardContainer_right}>
-            <p className={styles.switchText}>
-              {userLoginMethod
-                ? "Don't have an account?"
-                : 'Already have an account?'}
-            </p>
-            <button
-              onClick={() => setUserLoginMethod(!userLoginMethod)}
-              className={styles.switchButton}
-            >
-              {userLoginMethod ? 'Sign Up' : 'Sign In'}
-            </button>
+          {/* ── RIGHT PANEL ── */}
+          <div className={styles.accentSide}>
+            <div className={styles.accentContent}>
+              <p className={styles.accentQuote}>
+                {userLoginMethod ? "New here?" : "Already one of us?"}
+              </p>
+              <p className={styles.accentSub}>
+                {userLoginMethod
+                  ? "Create an account and start building your network."
+                  : "Sign in and pick up where you left off."}
+              </p>
+              <button onClick={() => setUserLoginMethod(!userLoginMethod)} className={styles.switchBtn}>
+                {userLoginMethod ? 'Sign Up' : 'Sign In'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

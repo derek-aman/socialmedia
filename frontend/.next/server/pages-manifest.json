@@ -2,5 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/dashboard": "pages/dashboard.js"
+  "/my_connections": "pages/my_connections.js",
+  "/dashboard": "pages/dashboard.js",
+  "/profile": "pages/profile.js",
+  "/discover": "pages/discover.js",
+  "/view_profile/[username]": "pages/view_profile/[username].js"
 }
