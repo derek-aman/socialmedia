@@ -47,9 +47,7 @@ const DashboardLayout = ({ children }) => {
     dispatch(setTokenIsThere());
   });
 
-  useEffect(() => {
-    setActiveRoute(router.pathname);
-  }, [router.pathname]);
+  activeRoute = router.pathname;
 
   const navigate = (route) => {
     setActiveRoute(route);

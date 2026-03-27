@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import postRoutes from './routes/posts.routes.js'
 import userRoutes from './routes/user.routes.js'
+import messgeRoutes from './routes/message.routes.js'
 import path from "path";
 import { fileURLToPath } from "url";
 import redisClient from './redis/redisClient.js';
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(postRoutes);
 app.use(userRoutes);
+app.use(messgeRoutes);
 // app.use(express.static("uploads"))
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
